@@ -1,5 +1,5 @@
 <!-- filename: login.php -->
-<?php include 'header.php'; ?>
+<?php include '../html/header.html'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
@@ -81,7 +81,7 @@
         </section>
     </div>
     <script src="script.js"></script>
-    <?php include 'footer.php'; ?>
+    <?php include '../html/footer.html'; ?>
 </body>
 
 </html>

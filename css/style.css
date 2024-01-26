@@ -13,7 +13,8 @@ body {
   padding: 20px;
 }
 
-.login-section, .signup-section {
+.login-section,
+.signup-section {
   margin: 10px;
   padding: 20px;
   background-color: white;
@@ -57,8 +58,9 @@ a {
   text-decoration: none;
   color: #0056b3;
 }
+
 /*///////////////////////////*/
-/* CSS (inde-style.css) */
+/* CSS (index-style.css) */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -115,9 +117,11 @@ body {
 
   .sidebar {
     width: auto;
-    order: -1; /* Move the sidebar to the top on smaller screens */
+    order: -1;
+    /* Move the sidebar to the top on smaller screens */
   }
 }
+
 /*///////////////////////////////*/
 /* CSS (header-style.css) */
 body {
@@ -150,6 +154,7 @@ header {
 .menu a:hover {
   background-color: #ddd;
 }
+
 /*///////////////////////////*/
 /*CSS (footer-style.css)*/
 .footer {
@@ -181,6 +186,7 @@ header {
     margin: 0 5px;
   }
 }
+
 /*///////////////////////////*/
 /*CSS (create-match-style.css)*/
 .container {
@@ -235,4 +241,5 @@ header {
 .button-container button {
   background-color: #ccc;
 }
+
 /***********************/
