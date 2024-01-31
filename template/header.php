@@ -9,8 +9,17 @@
     <title><?php echo $config['app_name']." | ".$title ?></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/about.css" />
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <Header>header</Header>
+    <header>
+        <nav class="menu">
+            <a href="index.php">Home</a>
+            <a href="about.php">About</a>
+            <a href="contact.php">Contact</a>
+            <a href="login.php">Login</a>
+        </nav>
+    </header>
