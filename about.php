@@ -1,6 +1,6 @@
 <?php 
 $title='About';
-require_once 'template/header.php'
+require_once 'header.php'
 ?>
 
 <section class="section">
@@ -81,4 +81,4 @@ require_once 'template/header.php'
 </section>
 
 
-<?php require_once 'template/footer.php'?>
+<?php require_once 'footer.php'?>
