@@ -29,6 +29,7 @@ require_once 'header.php';
         <ul>
             <li><a href="#">View Current Matches</a></li>
             <li><a href="create_match.php">Create New Matches</a></li>
+            <li><a href="match_location.php">Add New Location</a></li>
             <li><a href="profile.php">My Profile</a></li>
         </ul>
     </aside>
