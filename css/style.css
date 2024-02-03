@@ -65,7 +65,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #F1f5f8;
+  background-color: #f1f5f8;
 }
 
 .container {
@@ -74,7 +74,8 @@ body {
   justify-content: space-between;
 }
 
-.content {
+.main {
+  /* Change 'content' to 'main' */
   flex-grow: 1;
   padding: 20px;
 }
@@ -122,6 +123,7 @@ body {
   }
 }
 
+
 /*///////////////////////////////*/
 /* CSS (header-style.css) */
 body {
@@ -154,6 +156,12 @@ header {
 .menu a:hover {
   background-color: #ddd;
 }
+
+.menu img {
+  max-height: 100px;
+  max-width: 10%;
+}
+
 
 /*///////////////////////////*/
 /*CSS (footer-style.css)*/

@@ -4,23 +4,23 @@ require_once 'header.php';
 ?>
 
 <div class="container">
-    <main class="content">
+    <main class="main">
         <section class="matches">
             <h2>Upcoming Matches</h2>
             <p>
-                <!-- Upcoming matches content here -->
+                Upcoming matches content here
             </p>
         </section>
         <section class="matches">
             <h2>Current Matches</h2>
             <p>
-                <!-- Current matches content here -->
+                Current matches content here
             </p>
         </section>
         <section class="players">
             <h2>Top Players</h2>
             <p>
-                <!-- Top players content here -->
+                Top players content here
             </p>
         </section>
     </main>

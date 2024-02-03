@@ -14,7 +14,7 @@ require_once 'header.php'
 
     <div class="about-center section-center">
         <article class="about-img">
-            <img src="../img/hero-bcg.jpeg" alt="" />
+            <img src=".\img/hero-bcg.jpeg" alt="" />
         </article>
         <article class="about">
             <!-- btn container -->
