@@ -27,7 +27,7 @@ require_once 'header.php';
     <aside class="sidebar">
         <h3>Sidebar</h3>
         <ul>
-            <li><a href="#">View Current Matches</a></li>
+            <li><a href="current_match.php">View Current Matches</a></li>
             <li><a href="create_match.php">Create New Matches</a></li>
             <li><a href="match_location.php">Add New Location</a></li>
             <li><a href="profile.php">My Profile</a></li>

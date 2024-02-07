@@ -1,6 +1,9 @@
-<?php 
-$title = 'Login';
+<?php
+$title = 'Login and Sign Up';
 require_once 'header.php';
+
+// Include the connection file
+include 'connect.php';
 ?>
 
 <div class="container">
@@ -24,9 +27,10 @@ require_once 'header.php';
         </form>
     </section>
 
+
     <section class="signup-section">
         <h2>Sign Up</h2>
-        <form action="signup_code.php" method="post" id="signupForm">
+        <form action="signup_code.php" method="post" id="signupForm" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="full-name" class="form-label">Full Name:</label>
                 <input type="text" id="full-name" name="full_name" class="form-control" placeholder="Full Name"
@@ -50,8 +54,8 @@ require_once 'header.php';
             </div>
 
             <div class="mb-3">
-                <label for="birthdate" class="form-label">Birth Date:</label>
-                <input type="date" id="birthdate" name="birthdate" class="form-control">
+                <label for="birth_date" class="form-label">Birth Date:</label>
+                <input type="date" id="birth_date" name="birth_date" class="form-control">
             </div>
 
             <div class="mb-3">
@@ -62,45 +66,51 @@ require_once 'header.php';
             <div class="mb-3">
                 <label for="user-type">User Type:</label>
                 <select id="user-type" name="user_type" onchange="showPosition(this.value)">
-                    <option value="player">Select</option>
+                    <option value="select">Select</option>
                     <option value="player">Player</option>
                     <option value="admin">Admin</option>
-                </select><br>
-                <div class="mb-3">
-                    <div id="position" style="display:none;">
-                        <label for="player-position">First Position:</label>
-                        <select id="player-position" name="player_position_priority_one">
-                            <option value="goalkeeper">Goalkeeper</option>
-                            <option value="defender">Defender</option>
-                            <option value="midfielder">Midfielder</option>
-                            <option value="attacker">Attacker</option>
-                        </select><label for="player-rate-one">Rate (1-7):</label>
-                        <input type="number" id="player-rate-one" name="player_rate_one" min="1" max="7" /><br>
+                </select>
+            </div>
 
-                        <div class="mb-3">
-                            <label for="player-position">Second Position:</label>
-                            <select id="player-position" name="player_position_priority_two">
-                                <option value="goalkeeper">Goalkeeper</option>
-                                <option value="defender">Defender</option>
-                                <option value="midfielder">Midfielder</option>
-                                <option value="attacker">Attacker</option>
-                            </select><label for="player-rate-two">Rate (1-7):</label>
-                            <input type="number" id="player-rate-two" name="player_rate_two" min="1" max="7" /><br>
-                        </div>
-                    </div>
-                </div>
+            <div class="mb-3" id="position" style="display:none;">
+                <label for="player-position">First Position:</label>
+                <select id="player-position-one" name="player_position_priority_one">
+                    <option value="goalkeeper">Goalkeeper</option>
+                    <option value="defender">Defender</option>
+                    <option value="midfielder">Midfielder</option>
+                    <option value="attacker">Attacker</option>
+                </select>
+                <label for="player-rate-one">Rate (1-7):</label>
+                <input type="number" id="player-rate-one" name="player_rate_one" min="1" max="7" /><br>
 
                 <div class="mb-3">
-                    <label for="profile-picture" class="form-label">Profile Picture:</label>
-                    <input type="file" id="profile-picture" name="profile_picture" class="form-control"
-                        accept="image/png, image/jpeg">
+                    <label for="player-position">Second Position:</label>
+                    <select id="player-position-two" name="player_position_priority_two">
+                        <option value="goalkeeper">Goalkeeper</option>
+                        <option value="defender">Defender</option>
+                        <option value="midfielder">Midfielder</option>
+                        <option value="attacker">Attacker</option>
+                    </select>
+                    <label for="player-rate-two">Rate (1-7):</label>
+                    <input type="number" id="player-rate-two" name="player_rate_two" min="1" max="7" /><br>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
-                    <button type="button" class="btn btn-secondary" onclick="clearSignupForm()">Clear</button>
-                </div>
+
+            <div class="mb-3">
+                <label for="profile-picture" class="form-label">Profile Picture:</label>
+                <input type="file" id="profile-picture" name="profile_picture" class="form-control"
+                    accept="image/png, image/jpeg">
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="button" class="btn btn-secondary" onclick="clearSignupForm()">Clear</button>
+            </div>
+
+
         </form>
     </section>
 </div>
-<?php
+
+<?php require_once 'footer.php'; ?>

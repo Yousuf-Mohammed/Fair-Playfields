@@ -11,6 +11,10 @@
 <script src="javascript\script.js"></script>
 <script src="javascript\about.js"></script>
 <!-- <script src="javascript\index.js"></script> -->
+<!-- Include Bootstrap JS and other scripts (if needed) -->
+<script src="path/to/bootstrap.bundle.min.js"></script>
+<!-- Your custom scripts (if any) -->
+<script src="path/to/custom.js"></script>
 
 
 

@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $owner_name = mysqli_real_escape_string($conn, $_POST['owner_name']);
     $owner_phone = mysqli_real_escape_string($conn, $_POST['owner_phone']);
 
-    // Insert data into MATCH_LOCATIONS table
-    $sql = "INSERT INTO tblmatchlocation (name, address, facilities, owner_name, owner_phone)
+    // Insert data into match_location table
+    $sql = "INSERT INTO match_location (venue_name, venue_address, facilities_description, owner_name, owner_phone)
             VALUES ('$name', '$address', '$facilities', '$owner_name', '$owner_phone')";
 
     if ($conn->query($sql) === TRUE) {

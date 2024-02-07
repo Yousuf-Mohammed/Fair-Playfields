@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="css\style.css">
     <link rel="stylesheet" href="css\about.css">
     <!-- <link rel="stylesheet" href="css\index.css"> -->
+    <!-- Include Bootstrap CSS -->
+    <link href="path/to/bootstrap.min.css" rel="stylesheet">
+    <!-- Your custom CSS styles (if any) -->
+    <link rel="stylesheet" href="path/to/custom.css">
 </head>
 
 <body>

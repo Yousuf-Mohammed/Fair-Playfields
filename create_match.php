@@ -20,27 +20,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $max_players = mysqli_real_escape_string($conn, $_POST['max_players']);
     $match_location = mysqli_real_escape_string($conn, $_POST['match_location']);
 
-    // Insert data into tblmatch table
-    $sql = "INSERT INTO tblmatch (uid, mlid, match_name, match_date, time_from, time_to, min_players, max_players, mstatus)
-    VALUES ('5','5','$match_name', '$match_date', '$time_from', '$time_to', '$min_players', '$max_players', 'Active')";
+    // Insert data into match table
+    $sql = "INSERT INTO `match` (user_id, match_location_id, match_name, match_date, start_time, end_time, min_players, max_players, match_status)
+    VALUES ('5', '5', '$match_name', '$match_date', '$time_from', '$time_to', '$min_players', '$max_players', 'Active')";
 
-// Execute the query with error handling
-mysqli_query($conn, $sql) or die('Error in query: ' . $sql . ' ' . mysqli_error($conn));
+    // Execute the query with error handling
+    mysqli_query($conn, $sql) or die('Error in query: ' . $sql . ' ' . mysqli_error($conn));
 
-// Success message using JavaScript dialog
-echo '<script>
-    alert("Match created successfully");
-    window.location.href = "index.php"; // Redirect to the home page or another page
-  </script>';
-
+    // Success message using JavaScript dialog
+    echo '<script>
+            alert("Match created successfully");
+            window.location.href = "index.php"; // Redirect to the home page or another page
+          </script>';
 }
 
 // Fetch match locations from the database
-$locationQuery = "SELECT * FROM tblmatchlocation";
+$locationQuery = "SELECT * FROM match_location";
 $locationResult = mysqli_query($conn, $locationQuery);
 
-// Close the database connection
-mysqli_close($conn);
 ?>
 
 <div class="container">
@@ -69,7 +66,7 @@ mysqli_close($conn);
             <?php
             // Display match locations in the dropdown list
             while ($locationRow = mysqli_fetch_assoc($locationResult)) {
-                echo "<option value='{$locationRow['name']}'>{$locationRow['name']}</option>";
+                echo "<option value='{$locationRow['venue_name']}'>{$locationRow['venue_name']}</option>";
             }
 
             // Free the result set
