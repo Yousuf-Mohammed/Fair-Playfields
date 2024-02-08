@@ -11,14 +11,15 @@ include 'connect.php';
         <h2>Log in</h2>
         <form action="login_code.php" method="post" id="loginForm">
             <div class="mb-3">
-                <label for="username" class="form-label">Username:</label>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                <label for="user_name" class="form-label">User name:</label>
+                <input type="text" id="user_name" name="user_name" class="form-control" placeholder="User name"
+                    required>
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password"
-                    required>
+                <label for="user_password" class="form-label">Password:</label>
+                <input type="password" id="user_password" name="user_password" class="form-control"
+                    placeholder="Password" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>

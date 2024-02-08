@@ -4,31 +4,39 @@ include 'connect.php';
 
 // Function to sanitize user input
 function sanitizeInput($input) {
-    return htmlspecialchars(strip_tags(trim($input)));
+    global $conn;
+    // Use prepared statements to prevent SQL injection
+    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags(trim($input))));
 }
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize form inputs
-    $username = sanitizeInput($_POST['username']);
-    $password = sanitizeInput($_POST['password']);
+    $user_name = sanitizeInput($_POST['user_name']);
+    $user_password = sanitizeInput($_POST['user_password']);
 
     // SQL query to check user credentials
-    $sql = "SELECT * FROM user WHERE user_name = '$username'";
+    $sql = "SELECT * FROM user WHERE user_name = '$user_name' AND user_password = '$user_password'";
+    
+    // Execute the query
     $result = $conn->query($sql);
 
+    // Check if any row is returned
     if ($result->num_rows > 0) {
-        // User found, check password
+        // Fetch the user data
         $user = $result->fetch_assoc();
-        if (password_verify($password, $user['user_password'])) {
-            // Password is correct, redirect to home page or do further actions
-            header("Location: home.php");
-            exit();
-        } else {
-            echo '<script>alert("Incorrect password");</script>';
-        }
+        
+        // Password is correct, redirect to appropriate page
+        session_start();
+        $_SESSION['user_id'] = $user['user_id']; // Store user ID in session
+        header("Location: index.php");
+        exit();
     } else {
-        echo '<script>alert("User not found");</script>';
+        // Incorrect username or password
+        echo '<script>alert("Incorrect username or password");</script>';
+        echo "<script>window.location.href='javascript:history.back()'</script>"; //Redirects the user with JavaScript
+
+        
     }
 }
 
