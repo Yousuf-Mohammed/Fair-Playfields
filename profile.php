@@ -1,6 +1,21 @@
 <?php 
 $title = 'Profile';
 require_once 'header.php';
+require_once 'auth.php'; // Include the authentication logic
+require_once 'connect.php'; // Include the database connection file
+// Authenticate the user
+$user = authenticate();
+
+// Check if user is authenticated
+if (!$user) {
+    // Handle unauthorized access
+    echo "Unauthorized access.";
+    exit();
+}
+
+// Now you can use the $user variable to access user data
+// For example:
+echo "Welcome, " . $user['user_name'];
 ?>
 
 <div class="container">
@@ -8,17 +23,11 @@ require_once 'header.php';
     <div class="profile-card row">
 
         <?php
-        // Include the database connection file
-        require_once 'connect.php';
-
-        // Replace 'user_id' with the actual user ID you want to display
-        $uid = 4;
-
         // Fetch user data from the database
-        $query = "SELECT * FROM user WHERE user_id = $uid";
+        $query = "SELECT * FROM user WHERE user_id = {$user['user_id']}";
         $result = $conn->query($query);
 
-        if ($result->num_rows > 0) {
+        if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
             // Calculate age based on birth date

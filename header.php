@@ -29,5 +29,6 @@
             <a href="contact.php">Contact</a>
             <a href="admin.php">Admin</a>
             <a href="login_signup.php">Login</a>
+            <a href="logout.php">Logout</a>
         </nav>
     </header>

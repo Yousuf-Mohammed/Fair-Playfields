@@ -27,7 +27,7 @@ $currentMatchesResult = mysqli_query($conn, $currentMatchesQuery);
     if (mysqli_num_rows($currentMatchesResult) > 0) {
         // Display current matches information as a table
         echo "<table border='1'>";
-        echo "<tr><th>Match ID</th><th>Match Name</th><th>Date</th><th>Time From</th><th>Time To</th><th>Min Players</th><th>Max Players</th><th>Match Location</th><th>Venue Address</th><th>Facilities Description</th><th>Owner Name</th><th>Owner Phone</th></tr>";
+        echo "<tr><th>Match ID</th><th>Match Name</th><th>Date</th><th>Start Time</th><th>End Time</th><th>Min Players</th><th>Max Players</th><th>Match Location</th><th>Venue Address</th><th>Facilities Description</th><th>Owner Name</th><th>Owner Phone</th></tr>";
 
         while ($matchRow = mysqli_fetch_assoc($currentMatchesResult)) {
             echo "<tr>";
