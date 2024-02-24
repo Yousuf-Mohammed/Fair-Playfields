@@ -3,7 +3,8 @@
 include 'connect.php';
 
 // Function to sanitize user input
-function sanitizeInput($input) {
+function sanitizeInput($input)
+{
     global $conn;
     // Use prepared statements to prevent SQL injection
     return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags(trim($input))));
@@ -17,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // SQL query to check user credentials
     $sql = "SELECT * FROM user WHERE user_name = '$user_name' AND user_password = '$user_password'";
-    
+
     // Execute the query
     $result = $conn->query($sql);
 
@@ -25,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         // Fetch the user data
         $user = $result->fetch_assoc();
-        
+
         // Password is correct, redirect to appropriate page
         session_start();
         $_SESSION['user_id'] = $user['user_id']; // Store user ID in session
@@ -35,11 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Incorrect username or password
         echo '<script>alert("Incorrect username or password");</script>';
         echo "<script>window.location.href='javascript:history.back()'</script>"; //Redirects the user with JavaScript
-
-        
     }
 }
 
 // Close the connection
 $conn->close();
-?>

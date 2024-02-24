@@ -50,4 +50,3 @@ if (!$updatePlayerListResult) {
 // Redirect the user back to the match details page
 header("Location: match_details.php?match_id=$matchID");
 exit();
-?>
