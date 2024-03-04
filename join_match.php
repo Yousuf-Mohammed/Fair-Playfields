@@ -28,7 +28,7 @@ $playerListResult = mysqli_query($conn, $playerListQuery);
 
 if (!$playerListResult) {
     // Handle query error
-    die('Error in query: ' . $playerListQuery . ' ' . mysqli_error($conn));
+    die('Error in query: ' . $playerListQuery . '. Error: ' . mysqli_error($conn));
 }
 
 // Fetch the current player list
@@ -44,7 +44,20 @@ $updatePlayerListResult = mysqli_query($conn, $updatePlayerListQuery);
 
 if (!$updatePlayerListResult) {
     // Handle query error
-    die('Error in query: ' . $updatePlayerListQuery . ' ' . mysqli_error($conn));
+    die('Error in query: ' . $updatePlayerListQuery . '. Error: ' . mysqli_error($conn));
+}
+
+// Prepare and execute insert statement to add player info to player_info table
+$insertPlayerInfoQuery = "INSERT INTO player_info (user_id, match_id, primary_position, secondary_position, personal_rating) 
+                          VALUES (?, ?, ?, ?, ?)";
+
+$stmt = mysqli_prepare($conn, $insertPlayerInfoQuery);
+mysqli_stmt_bind_param($stmt, 'iisss', $user['user_id'], $matchID, $_POST['primary_position'], $_POST['secondary_position'], $_POST['personal_rating']);
+$insertPlayerInfoResult = mysqli_stmt_execute($stmt);
+
+if (!$insertPlayerInfoResult) {
+    // Handle query error
+    die('Error in query: ' . $insertPlayerInfoQuery . '. Error: ' . mysqli_stmt_error($stmt));
 }
 
 // Redirect the user back to the match details page

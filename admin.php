@@ -1,4 +1,4 @@
-<?php 
+<?php
 $title = 'Admin Panel';
 require_once 'header.php';
 ?>
@@ -10,7 +10,8 @@ require_once 'header.php';
 require_once 'connect.php';
 
 // Function for error handling
-function handleError($query, $connection) {
+function handleError($query, $connection)
+{
     die('Error in query: ' . $query . ' ' . mysqli_error($connection));
 }
 
@@ -22,8 +23,8 @@ $userResult = mysqli_query($conn, $userQuery) or handleError($userQuery, $conn);
 $locationQuery = "SELECT * FROM match_location";
 $locationResult = mysqli_query($conn, $locationQuery) or handleError($locationQuery, $conn);
 
-// Fetch all matches from the database
-$matchQuery = "SELECT * FROM `match`";
+// Fetch all matches from the database along with user_id
+$matchQuery = "SELECT m.*, u.user_id AS creator_user_id FROM `match` m LEFT JOIN user u ON m.user_id = u.user_id";
 $matchResult = mysqli_query($conn, $matchQuery) or handleError($matchQuery, $conn);
 
 // Display user information as a table
@@ -64,7 +65,7 @@ echo "</table>";
 // Display match information as a table
 echo "<h2>Match Information</h2>";
 echo "<table border='1'>";
-echo "<tr><th>Match ID</th><th>Match Name</th><th>Date</th><th>Time From</th><th>Time To</th><th>Min Players</th><th>Max Players</th><th>Match Location</th></tr>";
+echo "<tr><th>Match ID</th><th>Match Name</th><th>Date</th><th>Time From</th><th>Time To</th><th>Min Players</th><th>Max Players</th><th>Match Location</th><th>Creator User ID</th></tr>";
 
 while ($matchRow = mysqli_fetch_assoc($matchResult)) {
     echo "<tr>";
@@ -80,6 +81,8 @@ while ($matchRow = mysqli_fetch_assoc($matchResult)) {
     $matchLocationResult = mysqli_query($conn, $matchLocationQuery) or handleError($matchLocationQuery, $conn);
     $matchLocationRow = mysqli_fetch_assoc($matchLocationResult);
     echo "<td>{$matchLocationRow['venue_name']}</td>";
+    // Display creator_user_id
+    echo "<td>{$matchRow['creator_user_id']}</td>";
     mysqli_free_result($matchLocationResult);
     echo "</tr>";
 }
@@ -95,4 +98,4 @@ mysqli_free_result($matchResult);
 mysqli_close($conn);
 ?>
 
-<?php require_once 'footer.php';?>
+<?php require_once 'footer.php'; ?>

@@ -12,14 +12,12 @@ include 'connect.php';
         <form action="login_code.php" method="post" id="loginForm">
             <div class="mb-3">
                 <label for="user_name" class="form-label">User name:</label>
-                <input type="text" id="user_name" name="user_name" class="form-control" placeholder="User name"
-                    required>
+                <input type="text" id="user_name" name="user_name" class="form-control" placeholder="User name" required>
             </div>
 
             <div class="mb-3">
                 <label for="user_password" class="form-label">Password:</label>
-                <input type="password" id="user_password" name="user_password" class="form-control"
-                    placeholder="Password" required>
+                <input type="password" id="user_password" name="user_password" class="form-control" placeholder="Password" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Login</button>
@@ -34,13 +32,12 @@ include 'connect.php';
         <form action="signup_code.php" method="post" id="signupForm" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="full-name" class="form-label">Full Name:</label>
-                <input type="text" id="full-name" name="full_name" class="form-control" placeholder="Full Name"
-                    required>
+                <input type="text" id="full-name" name="full_name" class="form-control" placeholder="Full Name" required>
             </div>
 
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone:</label>
-                <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone">
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" maxlength="8">
             </div>
 
             <div class="mb-3">
@@ -50,8 +47,7 @@ include 'connect.php';
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password"
-                    required>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
             </div>
 
             <div class="mb-3">
@@ -100,8 +96,7 @@ include 'connect.php';
 
             <div class="mb-3">
                 <label for="profile-picture" class="form-label">Profile Picture:</label>
-                <input type="file" id="profile-picture" name="profile_picture" class="form-control"
-                    accept="image/png, image/jpeg">
+                <input type="file" id="profile-picture" name="profile_picture" class="form-control" accept="image/png, image/jpeg">
             </div>
 
             <div class="mb-3">
