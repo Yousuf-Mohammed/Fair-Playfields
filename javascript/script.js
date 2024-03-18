@@ -23,3 +23,10 @@ function clearForm() {
   document.getElementById("max-players").value = "";
   document.getElementById("location").value = "";
 }
+
+function redirectToLogin() {
+  // Redirect to login/signup page
+  window.location.href = "login_signup.php";
+  // Display alert message
+  alert("You must log in first to view this page.");
+}

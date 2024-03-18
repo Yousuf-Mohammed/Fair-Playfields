@@ -5,6 +5,14 @@ require_once 'header.php';
 // Include the database connection file
 require_once 'connect.php';
 
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login/signup page
+    header("Location: login_signup.php");
+    echo '<script>redirectToLogin();</script>'; // Alert message
+    exit(); // Ensure script execution stops after redirection
+}
+
 // Define variables to store user inputs
 $name = $address = $facilities = $owner_name = $owner_phone = '';
 $error = '';
