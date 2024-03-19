@@ -1,5 +1,5 @@
-<?php 
-$title='About';
+<?php
+$title = 'About';
 require_once 'header.php'
 ?>
 
@@ -81,4 +81,4 @@ require_once 'header.php'
 </section>
 
 
-<?php require_once 'footer.php'?>
+<?php require_once 'footer.php' ?>

@@ -1,6 +1,7 @@
 <?php
 require_once 'header.php';
 require_once 'auth.php'; // Include the authentication logic
+require_once 'connect.php';
 
 // Authenticate the user
 $user = authenticate();
@@ -12,61 +13,41 @@ if (!$user) {
     exit();
 }
 
-// Get the match ID from the URL
-$matchID = $_GET['match_id'];
+// Get the match ID from the URL if it exists
+$matchID = isset($_GET['match_id']) ? mysqli_real_escape_string($conn, $_GET['match_id']) : null;
 
 // Fetch match details from the database
-$matchDetails = getMatchDetails($conn, $matchID);
+$matchDetailsQuery = "SELECT m.*, ml.venue_name AS match_location
+                     FROM `match` m
+                     JOIN match_location ml ON m.match_location_id = ml.match_location_id
+                     WHERE m.match_id = '$matchID'";
 
-// Fetch players list
-$players = array_filter(explode(',', $matchDetails['player_list']));
+$matchDetailsResult = mysqli_query($conn, $matchDetailsQuery);
 
-// Display match details
-displayMatchDetails($matchDetails, $players);
-
-// Display player list
-displayPlayerList($matchDetails, $user);
-
-function getMatchDetails($conn, $matchID)
-{
-    // Fetch match details from the database
-    $matchDetailsQuery = "SELECT m.*, ml.venue_name AS match_location
-                        FROM `match` m
-                        JOIN match_location ml ON m.match_location_id = ml.match_location_id
-                        WHERE m.match_id = ?";
-
-    $stmt = mysqli_prepare($conn, $matchDetailsQuery);
-    mysqli_stmt_bind_param($stmt, 'i', $matchID);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    if (!$result) {
-        die('Error in query: ' . $matchDetailsQuery . ' ' . mysqli_error($conn));
-    }
-
-    $matchDetails = mysqli_fetch_assoc($result);
-
-    // Free the result set
-    mysqli_free_result($result);
-
-    // Close the statement
-    mysqli_stmt_close($stmt);
-
-    // Close the database connection
-    mysqli_close($conn);
-
-    return $matchDetails;
-}
-
-
-function displayMatchDetails($matchDetails, $players)
-{
-    $title = 'Match Details';
 ?>
+
 <div class="container mt-5">
-    <h1 class="mb-4"><?php echo $title; ?></h1>
+    <h1 class="mb-4">Match Details</h1>
+
     <div class="row">
-        <div class="col">
+        <!-- Match Details section -->
+        <div class="col-md-6">
+            <?php
+            // Check for query success
+            if (!$matchDetailsResult) {
+                die('Error in query: ' . $matchDetailsQuery . ' ' . mysqli_error($conn));
+            }
+
+            // Check if there are any match details
+            if (mysqli_num_rows($matchDetailsResult) > 0) {
+                // Display match details
+                $matchDetails = mysqli_fetch_assoc($matchDetailsResult);
+
+                // Explode the player list string into an array and remove empty or null values
+                $players = array_filter(explode(',', $matchDetails['player_list']));
+                // Calculate remaining player slots
+                $remainingPlayers = $matchDetails['max_players'] - count($players);
+            ?>
             <div class="card mb-4">
                 <div class="card-body">
                     <h2 class="card-title"><?php echo $matchDetails['match_name']; ?></h2>
@@ -76,51 +57,67 @@ function displayMatchDetails($matchDetails, $players)
                     <p class="card-text">Location: <?php echo $matchDetails['match_location']; ?></p>
                     <p class="card-text">Max Players: <?php echo $matchDetails['max_players']; ?></p>
                     <!-- Display remaining player count -->
-                    <p class="card-text">Remaining Players:
-                        <?php echo $matchDetails['max_players'] - count($players); ?></p>
+                    <p class="card-text">Remaining Players: <?php echo $remainingPlayers; ?></p>
+                    <!-- Display list of players -->
+                    <h5 class="card-title">Players Joined:</h5>
+                    <ul class="list-group">
+                        <?php foreach ($players as $player) : ?>
+                        <?php if (!empty($player)) : ?>
+                        <li class="list-group-item"><?php echo $player; ?></li>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+            <?php
+            } else {
+                echo "<p>No match details found.</p>";
+            }
+
+            // Free the result set
+            mysqli_free_result($matchDetailsResult);
+            ?>
+        </div>
+
+        <!-- Join this Match section -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Join this Match</h2>
+                    <form action="register_to_match.php" method="post">
+                        <input type="hidden" name="match_id" value="<?php echo $matchID; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
+                        <!-- Add form fields for primary position, secondary position, personal rating -->
+                        <div class="mb-3">
+                            <label for="primary_position" class="form-label">Primary Position:</label>
+                            <select id="primary_position" name="primary_position" class="form-select" required>
+                                <option value="">Select Primary Position</option>
+                                <option value="Goalkeeper">Goalkeeper</option>
+                                <option value="Defender">Defender</option>
+                                <option value="Midfielder">Midfielder</option>
+                                <option value="Attacker">Attacker</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="secondary_position" class="form-label">Secondary Position:</label>
+                            <select id="secondary_position" name="secondary_position" class="form-select" required>
+                                <option value="">Select Secondary Position</option>
+                                <option value="Goalkeeper">Goalkeeper</option>
+                                <option value="Defender">Defender</option>
+                                <option value="Midfielder">Midfielder</option>
+                                <option value="Attacker">Attacker</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="personal_rating" class="form-label">Personal Rating (1-10):</label>
+                            <input type="number" id="personal_rating" name="personal_rating" class="form-control"
+                                min="1" max="10" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Join Match</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<?php
-}
-
-function displayPlayerList($matchDetails, $user)
-{
-    $matchID = $_GET['match_id'];
-?>
-<div class="container mt-5">
-    <h3 class="mt-4">Player List:</h3>
-    <ol>
-        <?php
-            $players = array_filter(explode(',', $matchDetails['player_list']));
-            foreach ($players as $player) {
-                if (!empty($player)) {
-                    echo "<li class='list-group-item'>$player</li>";
-                }
-            }
-            ?>
-    </ol>
-    <?php
-        if (count($players) == $matchDetails['max_players']) {
-            // Display button to divide players into two teams
-        ?>
-    <!-- Button to divide players into two teams -->
-    <form action="divide_teams.php" method="post">
-        <input type="hidden" name="match_id" value="<?php echo $matchID; ?>">
-        <button type="submit" class="btn btn-primary mt-3">Divide Players into Teams</button>
-    </form>
-    <?php
-        }
-        ?>
-    <!-- Button to register for a match -->
-    <form action="join_match.php" method="post">
-        <input type="hidden" name="match_id" value="<?php echo $matchID; ?>">
-        <button type="submit" class="btn btn-primary mt-3">Register for Match</button>
-    </form>
-</div>
-<?php
-}
-?>
 <?php require_once 'footer.php'; ?>
